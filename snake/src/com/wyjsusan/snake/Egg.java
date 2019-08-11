@@ -21,12 +21,12 @@ public class Egg {
 	}
 	
 	public Egg() {
-		this(r.nextInt(Yard.ROWS - 2) + 2, r.nextInt(Yard.COLS - 2) + 2);
+		this(r.nextInt(Yard.ROWS - 3) + 2, r.nextInt(Yard.COLS - 3) + 2);
 	}
 	
 	public void reAppear() {
-		this.row = r.nextInt(Yard.ROWS - 2) + 2;
-		this.col = r.nextInt(Yard.COLS - 2) + 2;
+		this.row = r.nextInt(Yard.ROWS - 3) + 2;
+		this.col = r.nextInt(Yard.COLS - 3) + 2;
 	}
 	
 	public void draw(Graphics g) {

@@ -63,7 +63,7 @@ public class Yard extends Frame {
 		if (gameOver) {
 			g.setFont(new Font("Calibra", Font.BOLD, 50));
 			g.drawString("GAME OVER!", 100, 180);
-			paintThread.gameOver();
+			paintThread.pause();
 		}
 		g.setColor(c);
 		s.eat(e);

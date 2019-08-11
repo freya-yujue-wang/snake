@@ -45,16 +45,16 @@ public class Snake {
 		Node node = null;
 		switch(head.dir) {
 		case L:
-			node = new Node(tail.row, tail.col - 1, tail.dir);
+			node = new Node(head.row, head.col - 1, head.dir);
 			break;
 		case U:
-			node = new Node(tail.row - 1, tail.col, tail.dir);
+			node = new Node(head.row - 1, head.col, head.dir);
 			break;
 		case R:
-			node = new Node(tail.row, tail.col + 1, tail.dir);
+			node = new Node(head.row, head.col + 1, head.dir);
 			break;
 		case D:
-			node = new Node(tail.row + 1, tail.col, tail.dir);
+			node = new Node(head.row + 1, head.col, head.dir);
 			break;
 		}
 		node.next = head;
