@@ -82,8 +82,14 @@ public class Snake {
 	}
 
 	private void checkDead() {
-		if (head.row < 0 || head.col < 2 || head.row > Yard.ROWS || head.col > Yard.COLS) {
+		if (head.row < 2 || head.col < 0 || head.row > Yard.ROWS || head.col > Yard.COLS) {
 			yard.stop();
+		}
+		
+		for (Node n = head.next; n != null; n = n.next) {
+			if (head.row == n.row && head.col == n.col) {
+				yard.stop();
+			}
 		}
 		
 	}
@@ -101,6 +107,7 @@ public class Snake {
 		if (this.getRect().intersects(e.getRect())) {
 			e.reAppear();
 			this.addToHead();
+			yard.setScore(yard.getScore() + 5);
 		}
 	}
 	
