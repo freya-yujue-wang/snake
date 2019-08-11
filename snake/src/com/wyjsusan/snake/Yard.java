@@ -10,23 +10,14 @@ public class Yard extends Frame {
 
 	public static final int ROWS = 30;
 	public static final int COLS = 30;
-	
+
 	public static final int BLOCK_SIZE = 15;
-	
+
 	private int score = 0;
-	
+
 	public int getScore() {
 		return score;
 	}
-
-
-
-	private Runnable PaintThread() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 
 	public void setScore(int score) {
 		this.score = score;
@@ -34,9 +25,9 @@ public class Yard extends Frame {
 
 	Snake s = new Snake(this);
 	Egg e = new Egg();
-	
+
 	Image offScreenImage = null;
-	
+
 	public void launch() {
 		this.setLocation(200, 200);
 		this.setSize(COLS * BLOCK_SIZE, COLS * BLOCK_SIZE);
@@ -51,13 +42,11 @@ public class Yard extends Frame {
 		this.addKeyListener(new KeyMonitor());
 		new Thread(paintThread).start();
 	}
-	
-	
 
 	public static void main(String[] args) {
 		new Yard().launch();
 	}
-	
+
 	@Override
 	public void paint(Graphics g) {
 		Color c = g.getColor();
@@ -70,7 +59,7 @@ public class Yard extends Frame {
 		}
 		g.setColor(Color.yellow);
 		g.drawString("store:" + score, 10, 60);
-		
+
 		if (gameOver) {
 			g.setFont(new Font("Calibra", Font.BOLD, 50));
 			g.drawString("GAME OVER!", 100, 180);
@@ -80,10 +69,9 @@ public class Yard extends Frame {
 		s.eat(e);
 		e.draw(g);
 		s.draw(g);
-		
-		
+
 	}
-	
+
 	@Override
 	public void update(Graphics g) {
 		if (offScreenImage == null) {
@@ -93,41 +81,64 @@ public class Yard extends Frame {
 		paint(gOff);
 		g.drawImage(offScreenImage, 0, 0, null);
 	}
-	
+
 	public void stop() {
 		gameOver = true;
 	}
-	
-	//make the sanke move.
+
+	// make the snake move.
 	private class PaintThread implements Runnable {
 		private boolean running = true;
+		private boolean pause = false;
 
 		@Override
 		public void run() {
 			while (running) {
-				repaint();
+				if (pause) {
+					continue;
+				} else {
+					repaint();
+				}
+
 				try {
 					Thread.sleep(150);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
-			
+
 		}
-		
+
+		public void pause() {
+			this.pause = true;
+
+		}
+
 		public void gameOver() {
 			running = false;
 		}
-		
+
+		public void reStart() {			
+			this.pause = false;
+			//this.running = true;
+			s = new Snake(Yard.this);
+			gameOver = false;
+
+		}
+
 	}
-	
+
 	private class KeyMonitor extends KeyAdapter {
 
 		@Override
 		public void keyPressed(KeyEvent e) {
+			int key = e.getKeyCode();
+			if(key == KeyEvent.VK_F3) {
+				paintThread.reStart();
+			}
 			s.keyPressed(e);
 		}
-		
+
 	}
 
 }
