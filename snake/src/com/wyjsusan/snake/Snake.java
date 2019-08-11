@@ -87,6 +87,19 @@ public class Snake {
 		tail.next = null;
 		
 	}
+	
+	public void eat(Egg e) {
+		if (this.getRect().intersects(e.getRect())) {
+			e.reAppear();
+			this.addToHead();
+		}
+	}
+	
+	//detect the collision
+	private Rectangle getRect() {
+		return new Rectangle(Yard.BLOCK_SIZE * head.col, Yard.BLOCK_SIZE * head.row, head.w, head.h);
+		
+	}
 
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
