@@ -4,15 +4,13 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Yard extends Frame {
+
+	public static final int ROWS = 50;
+	public static final int COLS = 50;
 	
-
-
-
-
-	private static final int ROWS = 50;
-	private static final int COLS = 50;
+	public static final int BLOCK_SIZE = 10;
 	
-	private static final int BLOCK_SIZE = 10;
+	Snake s = new Snake();
 	
 	Image offScreenImage = null;
 	
@@ -48,6 +46,7 @@ public class Yard extends Frame {
 			g.drawLine(BLOCK_SIZE * i, 0, BLOCK_SIZE * i, BLOCK_SIZE * ROWS);
 		}
 		g.setColor(c);
+		s.draw(g);
 	}
 
 }
