@@ -10,11 +10,13 @@ public class Snake {
 	private int size = 0;
 	
 	private Node n = new Node(20, 30, Dir.L);
+	private Yard yard;
 
-	public Snake() {
+	public Snake(Yard y) {
 		head = n;
 		tail = n;
 		size = 1;
+		this.yard = y;
 	}
 	
 	public void addToTail() {
@@ -76,6 +78,13 @@ public class Snake {
 		//for snake move: 1. add a node to the head, and delete the last node;
 		addToHead();
 		deleteFromTail();
+		checkDead();
+	}
+
+	private void checkDead() {
+		if (head.row < 0 || head.col < 2 || head.row > Yard.ROWS || head.col > Yard.COLS) {
+			yard.stop();
+		}
 		
 	}
 
@@ -105,16 +114,24 @@ public class Snake {
 		int key = e.getKeyCode();
 		switch(key) {
 		case KeyEvent.VK_LEFT:
-			head.dir = Dir.L;
+			if (head.dir != Dir.R) {
+				head.dir = Dir.L;
+			}
 			break;
 		case KeyEvent.VK_UP:
-			head.dir = Dir.U;
+			if (head.dir != Dir.D) {
+				head.dir = Dir.U;
+			}
 			break;
 		case KeyEvent.VK_RIGHT:
-			head.dir = Dir.R;
+			if (head.dir != Dir.L) {
+				head.dir = Dir.R;
+			}
 			break;
 		case KeyEvent.VK_DOWN:
-			head.dir = Dir.D;
+			if (head.dir != Dir.U) {
+				head.dir = Dir.D;
+			}
 			break;
 		}
 	}

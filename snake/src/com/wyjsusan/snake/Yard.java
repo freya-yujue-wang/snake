@@ -5,14 +5,14 @@ import java.awt.event.*;
 
 public class Yard extends Frame {
 
-	
+	private boolean flag = true;
 
-	public static final int ROWS = 50;
-	public static final int COLS = 50;
+	public static final int ROWS = 30;
+	public static final int COLS = 30;
 	
-	public static final int BLOCK_SIZE = 10;
+	public static final int BLOCK_SIZE = 15;
 	
-	Snake s = new Snake();
+	Snake s = new Snake(this);
 	Egg e = new Egg();
 	
 	Image offScreenImage = null;
@@ -64,12 +64,16 @@ public class Yard extends Frame {
 		g.drawImage(offScreenImage, 0, 0, null);
 	}
 	
+	public void stop() {
+		flag = false;
+	}
+	
 	//make the sanke move.
 	private class PaintThread implements Runnable {
 
 		@Override
 		public void run() {
-			while (true) {
+			while (flag) {
 				repaint();
 				try {
 					Thread.sleep(150);
